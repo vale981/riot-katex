@@ -7,7 +7,7 @@
     if (window.hasRun) {
         return;
     }
-    window.hasRun = true;
+//    window.hasRun = true;
 
     /**
      * Set up math delimiters.
@@ -18,6 +18,17 @@
         {left: "\\[", right: "\\]", display: true}
     ]
 
+    function renderMath(node) {
+        let li = node.closest('li');
+        let og_content = (' ' + node.textContent).slice(1);
+        li.setAttribute('originalContent', og_content);
+        li.querySelector('.mx_MessageActionBar_maskButton[title="Edit"]')
+            .addEventListener("click", () => {
+                node.textContent = og_content;
+            });
+        renderMathInElement(node);
+    }
+
     /**
      * Initialize Extension as soon as matrix has been loaded.
      */
@@ -25,14 +36,22 @@
         // render with KaTeX as soon as the message appears
         function listen_on_chat_element() {
             const chat_elem = document.querySelector('.mx_RoomView_MessageList');
-            renderMathInElement(chat_elem, math_config);
+            //renderMathInElement(chat_elem, math_config);
+            for(let node of chat_elem.querySelectorAll('.mx_MTextBody')) {
+                renderMath(node);
+            }
 
             const callback = function(mutationsList, observer) {
                 // Use traditional 'for loops' for IE 11
                 for(let mutation of mutationsList) {
+                    if(mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        let node = mutation.target.querySelector('.mx_MTextBody');
+                        renderMath(node);
+                    }
                     if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                         for(let node of mutation.addedNodes) {
-                            renderMathInElement(node, math_config);
+                            node = node.querySelector('.mx_MTextBody');
+                            renderMath(node);
                         }
                     }
                 }
@@ -43,8 +62,14 @@
             return observer;
         }
 
+        let last_title = ''
+        const header = document.querySelector('title');
         // when changing the chat room, we have to create a new listener
         function change_chat_element(mutationsList, observer) {
+            if(last_title == header.textContent)
+                return;
+
+            last_title = header.textContent;
             if (chat_observer) {
                 chat_observer.disconnect();
             }
@@ -56,7 +81,6 @@
         let chat_observer = listen_on_chat_element();
 
         // start listening on the header as well
-        const header = document.querySelector('.mx_RoomList');
         const header_obs = new MutationObserver(change_chat_element)
         header_obs.observe(header, { attributes: true, childList: true, subtree: true });
     }
