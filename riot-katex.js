@@ -9,20 +9,24 @@
     }
     window.hasRun = true;
 
+    /**
+     * Set up math delimiters.
+     */
     const math_config = [
         {left: "$$", right: "$$", display: true},
         {left: "\\(", right: "\\)", display: false},
         {left: "\\[", right: "\\]", display: true}
     ]
 
+    /**
+     * Initialize Extension as soon as matrix has been loaded.
+     */
     function init() {
-        const header = document.querySelector('.mx_RoomList');
-        let chat_observer = listen_on_chat_element();
+        // render with KaTeX as soon as the message appears
         function listen_on_chat_element() {
             const chat_elem = document.querySelector('.mx_RoomView_MessageList');
             renderMathInElement(chat_elem, math_config);
 
-            const config = { attributes: true, childList: true, subtree: true };
             const callback = function(mutationsList, observer) {
                 // Use traditional 'for loops' for IE 11
                 for(let mutation of mutationsList) {
@@ -33,14 +37,13 @@
                     }
                 }
             };
-            // Create an observer instance linked to the callback function
-            const observer = new MutationObserver(callback);
 
-            // Start observing the target node for configured mutations
-            observer.observe(chat_elem, config);
+            const observer = new MutationObserver(callback);
+            observer.observe(chat_elem, { attributes: true, childList: true, subtree: true });
             return observer;
         }
 
+        // when changing the chat room, we have to create a new listener
         function change_chat_element(mutationsList, observer) {
             if (chat_observer) {
                 chat_observer.disconnect();
@@ -49,13 +52,16 @@
             chat_observer = listen_on_chat_element();
         }
 
+        // start listening
+        let chat_observer = listen_on_chat_element();
+
+        // start listening on the header as well
+        const header = document.querySelector('.mx_RoomList');
         const header_obs = new MutationObserver(change_chat_element)
-        const config = { attributes: true, childList: true, subtree: true };
-        header_obs.observe(header, config);
+        header_obs.observe(header, { attributes: true, childList: true, subtree: true });
     }
 
-    let  = window.wrappedJSObject;
-
+    // a clever hack to check if riot has been loaded yet
     function wait_for_matrix() {
         if(!('matrixChat' in window.wrappedJSObject
              && window.wrappedJSObject.matrixChat.firstSyncComplete))
