@@ -7,7 +7,7 @@
     if (window.hasRun) {
         return;
     }
-//    window.hasRun = true;
+    window.hasRun = true;
 
     /**
      * Set up math delimiters.
@@ -18,6 +18,10 @@
         {left: "\\[", right: "\\]", display: true}
     ]
 
+    /**
+     * Render math in a node if it hasn't already be done
+     * and register an event on the edit button.
+     */
     function renderMath(node) {
         let li = node.closest('li');
 
@@ -43,18 +47,17 @@
         // render with KaTeX as soon as the message appears
         function listen_on_chat_element() {
             const chat_elem = document.querySelector('.mx_RoomView_MessageList');
-            //renderMathInElement(chat_elem, math_config);
             for(let node of chat_elem.querySelectorAll('.mx_MTextBody')) {
                 renderMath(node);
             }
 
             const callback = function(mutationsList, observer) {
-                // Use traditional 'for loops' for IE 11
                 for(let mutation of mutationsList) {
                     if(mutation.type === 'attributes' && mutation.attributeName === 'class') {
                         let node = mutation.target.querySelector('.mx_MTextBody');
                         renderMath(node);
                     }
+
                     if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                         for(let node of mutation.addedNodes) {
                             node = node.querySelector('.mx_MTextBody');
