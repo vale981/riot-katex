@@ -10,7 +10,7 @@ This extension injects KaTeX into the `Riot` chat client for
  - `\(x^2\)` renders math inline
 
 ## Example
-[Example](example.png)
+![Example](example.png)
 
 ## Download and Installation
 You can download the extension [from
