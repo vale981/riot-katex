@@ -1,26 +1,26 @@
 {
     "manifest_version": 2,
-    "name": "Riot KaTeX",
-    "version": "1.0",
+    "name": "Riot KaTeX for matrix.tu-dresden.de",
+    "version": "1.0.1",
 
-    "description": "Renders formulars in Riot chats using KaTeX.",
+    "description": "Renders formulars on matrix.tu-dresden.de chats using KaTeX.",
 
-    "icons": {
-        "48": "icons/border-48.png"
-    },
+
     "permissions": [
         "activeTab"
     ],
     "content_scripts": [
         {
             "matches": ["*://matrix.tu-dresden.de/*"],
-            "js": ["node_modules/katex/dist/katex.js",
-                   "node_modules/katex/dist/contrib/auto-render.js",
-                   "node_modules/observable-slim/observable-slim.js",
+            "js": ["katex.min.js",
+                   "auto-render.min.js",
                    "riot-katex.js"],
-            "css": ["node_modules/katex/dist/katex.css"],
+            "css": ["katex.min.css"],
             "all_frames": true,
             "run_at": "document_idle"
         }
+    ],
+    "web_accessible_resources": [
+        "fonts/*.woff2"
     ]
 }
