@@ -9,13 +9,14 @@ This extension injects KaTeX into the `Riot` chat client for
  - `$$x^2$$` renders math block style
  - `\(x^2\)` renders math inline
 
-## Example
-![Example](example.png)
 
 ## Download and Installation
 You can download the extension [from
 here](https://github.com/vale981/riot-katex/releases/latest). Just
 double click it, or drag it one firefox to install.
+
+## Example
+![Example](example.png)
 
 ## Building the Extension
  - make sure you have npm installed
