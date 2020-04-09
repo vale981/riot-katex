@@ -32,12 +32,16 @@
 
         let og_content = (' ' + node.textContent).slice(1);
         li.setAttribute('originalContent', og_content);
-        li.querySelector('.mx_MessageActionBar_maskButton[title="Edit"]')
-            .addEventListener("click", event => {
-                event.target.closest('li').setAttribute('originalContent', '');
-                node.textContent = og_content;
-            });
         renderMathInElement(node);
+
+        let edit_button = li.querySelector('.mx_MessageActionBar_maskButton[title="Edit"]');
+        if (edit_button) {
+            li.querySelector('.mx_MessageActionBar_maskButton[title="Edit"]')
+                .addEventListener("click", event => {
+                    event.target.closest('li').setAttribute('originalContent', '');
+                    node.textContent = og_content;
+                });
+        }
     }
 
     /**
@@ -46,8 +50,10 @@
     function init() {
         // render with KaTeX as soon as the message appears
         function listen_on_chat_element() {
-            const chat_elem = document.querySelector('.mx_RoomView_MessageList');
-            for(let node of chat_elem.querySelectorAll('.mx_MTextBody')) {
+            let chat_elem = document.querySelector('.mx_RoomView_MessageList');
+            let chat_items = chat_elem.querySelectorAll('.mx_MTextBody');
+
+            for(let node of chat_items) {
                 renderMath(node);
             }
 
@@ -74,6 +80,10 @@
 
         let last_title = ''
         const header = document.querySelector('title');
+
+        // start listening
+        let chat_observer = listen_on_chat_element();
+
         // when changing the chat room, we have to create a new listener
         function change_chat_element(mutationsList, observer) {
             if(last_title == header.textContent)
@@ -86,9 +96,6 @@
 
             chat_observer = listen_on_chat_element();
         }
-
-        // start listening
-        let chat_observer = listen_on_chat_element();
 
         // start listening on the header as well
         const header_obs = new MutationObserver(change_chat_element)
