@@ -20,10 +20,17 @@
 
     function renderMath(node) {
         let li = node.closest('li');
+
+        // we have already rendered this element
+        if (li.getAttribute('originalContent')) {
+            return;
+        }
+
         let og_content = (' ' + node.textContent).slice(1);
         li.setAttribute('originalContent', og_content);
         li.querySelector('.mx_MessageActionBar_maskButton[title="Edit"]')
-            .addEventListener("click", () => {
+            .addEventListener("click", event => {
+                event.target.closest('li').setAttribute('originalContent', '');
                 node.textContent = og_content;
             });
         renderMathInElement(node);
