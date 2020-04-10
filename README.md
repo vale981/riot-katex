@@ -1,9 +1,7 @@
 # ![Icon](icons/icon.png) Riot KaTeX
 
 This extension injects KaTeX into the `Riot` chat client for
-`matrix`. This currently works for just one domain
-(matrix.tu-dresden.de). If you want to use it for other instances, you
-have to adjust the `manifest.json`.
+`matrix`.
 
 ## Writing LaTeX
  - `$$x^2$$` renders math block style
