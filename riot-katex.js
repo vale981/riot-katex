@@ -9,6 +9,9 @@
     }
     window.hasRun = true;
 
+    const chat_class =  '.mx_RoomView_MessageList';
+    const chat_item_class = '.mx_MTextBody';
+
     /**
      * Set up math delimiters.
      */
@@ -23,6 +26,9 @@
      * and register an event on the edit button.
      */
     function renderMath(node) {
+        if (!node)
+            return;
+
         let li = node.closest('li');
 
         // we have already rendered this element
@@ -50,8 +56,8 @@
     function init() {
         // render with KaTeX as soon as the message appears
         function listen_on_chat_element() {
-            let chat_elem = document.querySelector('.mx_RoomView_MessageList');
-            let chat_items = chat_elem.querySelectorAll('.mx_MTextBody');
+            let chat_elem = document.querySelector(chat_class);
+            let chat_items = chat_elem.querySelectorAll(chat_item_class);
 
             for(let node of chat_items) {
                 renderMath(node);
@@ -60,13 +66,13 @@
             const callback = function(mutationsList, observer) {
                 for(let mutation of mutationsList) {
                     if(mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                        let node = mutation.target.querySelector('.mx_MTextBody');
+                        let node = mutation.target.querySelector(chat_item_class);
                         renderMath(node);
                     }
 
                     if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                         for(let node of mutation.addedNodes) {
-                            node = node.querySelector('.mx_MTextBody');
+                            node = node.querySelector(chat_item_class);
                             renderMath(node);
                         }
                     }
@@ -86,7 +92,7 @@
 
         // when changing the chat room, we have to create a new listener
         function change_chat_element(mutationsList, observer) {
-            if(last_title == header.textContent)
+            if(last_title === header.textContent)
                 return;
 
             last_title = header.textContent;
@@ -105,11 +111,15 @@
     // a clever hack to check if riot has been loaded yet
     function wait_for_matrix() {
         if(!('matrixChat' in window.wrappedJSObject
-             && window.wrappedJSObject.matrixChat.firstSyncComplete))
+             && window.wrappedJSObject.matrixChat.firstSyncComplete
+             && document.querySelector(chat_class)))
             return setTimeout(wait_for_matrix, 500);
 
         init();
     }
 
-    wait_for_matrix();
+    // detect Riot
+    let app_name_meta = document.head.querySelector('meta[name="application-name"]');
+    if (app_name_meta && app_name_meta.content === 'Riot')
+        wait_for_matrix();
 })();

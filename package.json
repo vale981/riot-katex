@@ -1,23 +1,25 @@
 {
-  "name": "riot-katex-tu-dd",
-  "version": "1.0.0",
-  "description": "Renders formulars on matrix.tu-dresden.de chats using KaTeX",
-  "main": "riot-katex.js",
-  "dependencies": {
-    "katex": "^0.11.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vale981/riot-katex.git"
-  },
-  "author": "",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/vale981/riot-katex/issues"
-  },
-  "homepage": "https://github.com/vale981/riot-katex#readme"
+    "name": "riot-katex",
+    "version": "1.0.0",
+    "description": "Renders formulars in the Riot chat client for Matrix using KaTeX.",
+    "main": "riot-katex.js",
+    "dependencies": {
+        "katex": "^0.11.1"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "postinstall": "sh ./package.sh",
+        "build": "sh ./package.sh",
+        "clean": "rm -r build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vale981/riot-katex.git"
+    },
+    "author": "",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/vale981/riot-katex/issues"
+    },
+    "homepage": "https://github.com/vale981/riot-katex#readme"
 }
