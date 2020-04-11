@@ -3,7 +3,7 @@
     "name": "Riot KaTeX for matrix.tu-dresden.de",
     "version": "1.0.6",
 
-    "description": "Renders formulars on matrix.tu-dresden.de chats using KaTeX.",
+    "description": "Renders formulas on matrix.tu-dresden.de chats using KaTeX.",
 
     "content_scripts": [
         {
@@ -12,7 +12,6 @@
                    "auto-render.min.js",
                    "riot-katex.js"],
             "css": ["katex.min.css"],
-            "all_frames": true,
             "run_at": "document_idle"
         }
     ],
