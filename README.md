@@ -9,9 +9,8 @@ This extension injects KaTeX into the `Riot` chat client for
 
 
 ## Download and Installation
-You can download the extension [from
-here](https://github.com/vale981/riot-katex/releases/latest). Just
-double click it, or drag it one firefox to install.
+You can download the extension [the firefox addon
+store](https://addons.mozilla.org/en-US/firefox/addon/riot-katex/).
 
 ## Example
 ![Example](example.png)

@@ -1,14 +1,10 @@
 {
     "manifest_version": 2,
     "name": "Riot KaTeX for matrix.tu-dresden.de",
-    "version": "1.0.5",
+    "version": "1.0.6",
 
     "description": "Renders formulars on matrix.tu-dresden.de chats using KaTeX.",
 
-
-    "permissions": [
-        "activeTab"
-    ],
     "content_scripts": [
         {
             "matches": ["*://*/*"],
