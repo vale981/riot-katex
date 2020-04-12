@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Riot KaTeX for matrix.tu-dresden.de",
-    "version": "1.0.6",
+    "version": "1.0.7",
 
     "description": "Renders formulas on matrix.tu-dresden.de chats using KaTeX.",
 

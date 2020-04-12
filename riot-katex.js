@@ -84,7 +84,6 @@
             return observer;
         }
 
-        let last_title = ''
         const header = document.querySelector('title');
 
         // start listening
@@ -92,10 +91,6 @@
 
         // when changing the chat room, we have to create a new listener
         function change_chat_element(mutationsList, observer) {
-            if(last_title === header.textContent)
-                return;
-
-            last_title = header.textContent;
             if (chat_observer) {
                 chat_observer.disconnect();
             }
