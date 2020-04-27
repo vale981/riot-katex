@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Riot KaTeX",
-    "version": "1.0.9",
+    "version": "1.1.0",
 
     "description": "Renders formulas on riot chat instances chats using KaTeX.",
 
