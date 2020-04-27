@@ -4,8 +4,8 @@ This extension injects KaTeX into the `Riot` chat client for
 `matrix`.
 
 ## Writing LaTeX
- - `$$x^2$$` renders math block style
- - `\(x^2\)` renders math inline
+ - `$$$x^2$$$` renders math block style
+ - `$$x^2$$` renders math inline
 
 
 ## Download and Installation

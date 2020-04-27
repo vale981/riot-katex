@@ -15,11 +15,12 @@
     /**
      * Set up math delimiters.
      */
-    const math_config = [
-        {left: "$$", right: "$$", display: true},
-        {left: "\\(", right: "\\)", display: false},
-        {left: "\\[", right: "\\]", display: true}
-    ]
+    const math_config = {
+        delimiters :[
+            {left: "$$$", right: "$$$", display: true},
+            {left: "$$", right: "$$", display: false}
+        ],
+    }
 
     /**
      * Render math in a node if it hasn't already be done
@@ -42,8 +43,8 @@
                 continue;
 
             let og_content = (' ' + content.textContent).slice(1);
-            content.setAttribute('originalContent', og_content);
-            renderMathInElement(content);
+            //content.setAttribute('originalContent', og_content);
+            renderMathInElement(content, math_config);
         }
     }
 
