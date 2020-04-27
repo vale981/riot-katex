@@ -31,22 +31,19 @@
 
         let li = node.closest('li');
 
-        // we have already rendered this element
-        if (li.getAttribute('originalContent')) {
+        let contentNodes = li.querySelectorAll('.mx_EventTile_body');
+
+        if (!content) {
             return;
         }
 
-        let og_content = (' ' + node.textContent).slice(1);
-        li.setAttribute('originalContent', og_content);
-        renderMathInElement(node);
+        for (let content of contentNodes) {
+            if(content.getAttribute('originalContent') || content.getAttribute('editing'))  // already rendered
+                continue;
 
-        let edit_button = li.querySelector('.mx_MessageActionBar_maskButton[title="Edit"]');
-        if (edit_button) {
-            li.querySelector('.mx_MessageActionBar_maskButton[title="Edit"]')
-                .addEventListener("click", event => {
-                    event.target.closest('li').setAttribute('originalContent', '');
-                    node.textContent = og_content;
-                });
+            let og_content = (' ' + content.textContent).slice(1);
+            content.setAttribute('originalContent', og_content);
+            renderMathInElement(content);
         }
     }
 
