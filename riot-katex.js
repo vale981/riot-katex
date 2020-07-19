@@ -114,6 +114,6 @@
 
     // detect Riot
     let app_name_meta = document.head.querySelector('meta[name="application-name"]');
-    if (app_name_meta && app_name_meta.content === 'Riot')
+    if (app_name_meta && (app_name_meta.content === 'Riot' || app_name_meta.content === 'Element'))
         wait_for_matrix();
 })();

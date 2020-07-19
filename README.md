@@ -1,6 +1,6 @@
-# ![Icon](icons/icon.png) Riot KaTeX
+# ![Icon](icons/icon.png) Riot/Element KaTeX
 
-This extension injects KaTeX into the `Riot` chat client for
+This extension injects KaTeX into the `Element` chat client for
 `matrix`.
 
 ## Writing LaTeX
